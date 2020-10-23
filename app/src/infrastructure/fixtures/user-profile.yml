@@ -1,0 +1,6 @@
+entity: UserProfile
+items:
+  profile0:
+    userId: '@user0'
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'

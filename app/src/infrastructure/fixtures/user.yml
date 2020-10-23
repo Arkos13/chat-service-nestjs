@@ -1,0 +1,6 @@
+entity: User
+items:
+  user0:
+    id: '5eab9af1-fa77-4330-8a9b-caa3225ff6eb'
+    email: 'test@gmail.com'
+    password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456

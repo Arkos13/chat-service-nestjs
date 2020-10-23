@@ -1,0 +1,37 @@
+version: '3'
+services:
+  nestjs-app-node:
+    build:
+      context: docker/node
+    container_name: nestjs-app-node
+    volumes:
+      - ./app:/var/www
+    tty: true
+    depends_on:
+      - nestjs-app-postgres
+    ports:
+    - "3000:3000"
+    networks:
+      - internal
+  nestjs-app-postgres:
+    image: postgres:12-alpine
+    container_name: nestjs-app-postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: nestjs
+    ports:
+      - "5432:5432"
+    networks:
+      - internal
+volumes:
+  postgres-data:
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.225.0/24
