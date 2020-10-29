@@ -13,7 +13,7 @@ export class UserRepository implements UserRepositoryInterface {
         this.repository = em.getRepository<User>(User);
     }
 
-    findOneByEmail(email: string): Promise<User> {
+    findOneByEmail(email: string): Promise<User | undefined> {
         return this.repository.findOne({ where: { email } });
     }
 
