@@ -4,3 +4,8 @@ items:
     userId: '@user0'
     firstName: '{{name.firstName}}'
     lastName: '{{name.lastName}}'
+
+  profile1:
+    userId: '@user1'
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'

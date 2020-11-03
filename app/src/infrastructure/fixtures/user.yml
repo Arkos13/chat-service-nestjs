@@ -4,3 +4,9 @@ items:
     id: '5eab9af1-fa77-4330-8a9b-caa3225ff6eb'
     email: 'test@gmail.com'
     password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
+
+  user1:
+    id: 'd21f538b-0533-4dce-b193-b5e1db61dc96'
+    email: 'test1@gmail.com'
+    password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
+    confirmToken: '123'
