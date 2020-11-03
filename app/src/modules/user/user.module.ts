@@ -13,10 +13,12 @@ import {SignUpCommandHandler} from "./application/commands/sign-up/sign-up.comma
 import {SignedUpEventHandler} from "./application/event-handlers/signed-up/signed-up.event.handler";
 import {SignUpAction} from "./ports/rest/actions/sign-up.action";
 import {UserProfileRepository} from "./infrastructure/repositories/user-profile.repository";
-import {MailService} from "./application/services/mail/mail-service";
+import {SimpleMailService} from "./application/services/mail/simple-mail-service";
+import {ConfirmAction} from "./ports/rest/actions/confirm.action";
+import {ConfirmCommandHandler} from "./application/commands/confirm/confirm.command.handler";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
-export const CommandHandlers = [SignInCommandHandler, SignUpCommandHandler];
+export const CommandHandlers = [SignInCommandHandler, SignUpCommandHandler, ConfirmCommandHandler];
 export const EventHandlers = [SignedUpEventHandler];
 
 @Module({
@@ -38,10 +40,11 @@ export const EventHandlers = [SignedUpEventHandler];
     controllers: [
         SignInAction,
         SignUpAction,
+        ConfirmAction,
     ],
     providers: [
         Logger,
-        MailService,
+        SimpleMailService,
         UserRepository,
         UserProfileRepository,
         PasswordHasherArgon2i,

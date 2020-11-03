@@ -26,6 +26,13 @@ services:
       - "5432:5432"
     networks:
       - internal
+  nestjs-app-mailer:
+    container_name: nestjs-app-mailer
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    networks:
+      - internal
 volumes:
   postgres-data:
 networks:

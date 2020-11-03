@@ -21,4 +21,8 @@ export class UserRepository implements UserRepositoryInterface {
         await this.repository.save(user);
     }
 
+    findOneByConfirmationToken(token: string): Promise<User | undefined> {
+        return this.repository.findOne({ where: { confirmToken: token }});
+    }
+
 }
