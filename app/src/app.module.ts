@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import {TypeOrmModule} from "@nestjs/typeorm";
-import * as dbConfig from './configs/ormconfig.js';
-import * as mailerConfig from './configs/mailer-config.js';
+import * as dbConfig from './configs/ormconfig';
+import * as mailerConfig from './configs/mailer-config';
 import {UserModule} from "./modules/user/user.module";
 import {AuthModule} from "./modules/auth/auth.module";
 import {ChatModule} from "./modules/chat/chat.module";
