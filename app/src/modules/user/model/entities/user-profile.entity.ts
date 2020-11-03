@@ -12,7 +12,7 @@ export class UserProfile {
     @Column()
     lastName: string;
 
-    @OneToOne(_ => User)
+    @OneToOne(_ => User, user => user.profile)
     @JoinColumn({name: 'userId'})
     user: User;
 

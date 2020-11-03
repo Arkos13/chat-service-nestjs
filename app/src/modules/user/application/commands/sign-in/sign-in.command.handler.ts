@@ -6,6 +6,7 @@ import {UserNotFoundError} from "../../../model/exceptions/user-not-found.error"
 import {PasswordInvalidError} from "../../../model/exceptions/password-invalid.error";
 import {JwtPayload} from "../../../../auth/shared/interfaces/jwt-payload.interface";
 import {SignInCommand} from "./sign-in.command";
+import {UserNotConfirmedError} from "../../../model/exceptions/user-not-confirmed.error";
 
 @CommandHandler(SignInCommand)
 export class SignInCommandHandler implements ICommandHandler<SignInCommand> {
@@ -20,6 +21,10 @@ export class SignInCommandHandler implements ICommandHandler<SignInCommand> {
 
         if (typeof user === "undefined") {
             throw new UserNotFoundError(`User with email ${command.email} not found`);
+        }
+
+        if (user.confirmToken) {
+            throw new UserNotConfirmedError();
         }
 
         const isVerifyPassword = await this.passwordHasher.verify(user.password, command.password);

@@ -1,9 +1,11 @@
-import {Body, Controller, Post, ValidationPipe} from "@nestjs/common"
+import {BadRequestException, Body, Controller, HttpCode, Post, ValidationPipe} from "@nestjs/common"
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
 import {GetAccessTokenQuery} from "../../../application/queries/get-access-token/get-access-token.query";
 import {SignInRequest} from "../requests/sign-in.request";
 import {SignInCommand} from "../../../application/commands/sign-in/sign-in.command";
+import {ApiResponse, ApiTags} from "@nestjs/swagger";
 
+@ApiTags('Auth')
 @Controller('api/auth')
 export class SignInAction {
 
@@ -13,17 +15,26 @@ export class SignInAction {
     ) {}
 
     @Post('/token')
-    public async getTokenAction(
+    @HttpCode(200)
+    @ApiResponse({
+        status: 200,
+        type: String
+    })
+    public async action(
         @Body(ValidationPipe)
         request: SignInRequest
     ): Promise<string> {
 
-        await this.commandBus.execute(
-            new SignInCommand(request.email, request.password)
-        );
+        try {
+            await this.commandBus.execute(
+                new SignInCommand(request.email, request.password)
+            );
 
-        return this.queryBus.execute(
-            new GetAccessTokenQuery(request.email)
-        );
+            return this.queryBus.execute(
+                new GetAccessTokenQuery(request.email)
+            );
+        } catch (e) {
+            throw new BadRequestException(e.message);
+        }
     }
 }

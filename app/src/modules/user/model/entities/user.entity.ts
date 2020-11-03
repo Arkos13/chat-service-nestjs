@@ -21,10 +21,11 @@ export class User {
     @OneToOne(_ => UserProfile, profile => profile.user)
     profile: UserProfile;
 
-    static create(id: string, email: string): User {
+    static create(id: string, email: string, password: string): User {
         const user = new User();
         user.id = id;
         user.email = email;
+        user.password = password;
         return user;
     }
 }

@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {Logger, Module} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {User} from "./model/entities/user.entity";
 import {UserProfile} from "./model/entities/user-profile.entity";
@@ -9,9 +9,15 @@ import {GetAccessTokenQueryHandler} from "./application/queries/get-access-token
 import {JwtModule} from "@nestjs/jwt";
 import {SignInCommandHandler} from "./application/commands/sign-in/sign-in.command.handler";
 import {SignInAction} from "./ports/rest/actions/sign-in.action";
+import {SignUpCommandHandler} from "./application/commands/sign-up/sign-up.command.handler";
+import {SignedUpEventHandler} from "./application/event-handlers/signed-up/signed-up.event.handler";
+import {SignUpAction} from "./ports/rest/actions/sign-up.action";
+import {UserProfileRepository} from "./infrastructure/repositories/user-profile.repository";
+import {MailService} from "./application/services/mail/mail-service";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
-export const CommandHandlers = [SignInCommandHandler];
+export const CommandHandlers = [SignInCommandHandler, SignUpCommandHandler];
+export const EventHandlers = [SignedUpEventHandler];
 
 @Module({
     imports: [
@@ -31,12 +37,17 @@ export const CommandHandlers = [SignInCommandHandler];
     ],
     controllers: [
         SignInAction,
+        SignUpAction,
     ],
     providers: [
+        Logger,
+        MailService,
         UserRepository,
+        UserProfileRepository,
         PasswordHasherArgon2i,
         ...QueryHandlers,
         ...CommandHandlers,
+        ...EventHandlers,
     ],
     exports: [
         UserRepository,
