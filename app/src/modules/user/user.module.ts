@@ -3,13 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {User} from "./model/entities/user.entity";
 import {UserProfile} from "./model/entities/user-profile.entity";
 import {UserRepository} from "./infrastructure/repositories/user.repository";
-import {GetTokenAction} from "./ports/rest/actions/get-token.action";
 import {PasswordHasherArgon2i} from "./application/services/password-hasher/password-hasher-argon2i";
 import {CqrsModule} from "@nestjs/cqrs";
 import {GetAccessTokenQueryHandler} from "./application/queries/get-access-token/get-access-token.query.handler";
 import {JwtModule} from "@nestjs/jwt";
+import {SignInCommandHandler} from "./application/commands/sign-in/sign-in.command.handler";
+import {SignInAction} from "./ports/rest/actions/sign-in.action";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
+export const CommandHandlers = [SignInCommandHandler];
 
 @Module({
     imports: [
@@ -28,12 +30,13 @@ export const QueryHandlers = [GetAccessTokenQueryHandler];
         }),
     ],
     controllers: [
-        GetTokenAction,
+        SignInAction,
     ],
     providers: [
         UserRepository,
         PasswordHasherArgon2i,
         ...QueryHandlers,
+        ...CommandHandlers,
     ],
     exports: [
         UserRepository,

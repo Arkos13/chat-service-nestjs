@@ -8,8 +8,8 @@ import {ChatModule} from "./modules/chat/chat.module";
 @Module({
   imports: [
       TypeOrmModule.forRoot(dbConfig),
-      UserModule,
       AuthModule,
+      UserModule,
       ChatModule,
   ],
   controllers: [],

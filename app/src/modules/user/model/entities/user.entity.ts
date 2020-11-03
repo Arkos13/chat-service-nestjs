@@ -15,6 +15,9 @@ export class User {
     @Column({nullable: true})
     confirmToken?: string;
 
+    @Column({nullable: true})
+    jwtToken?: string;
+
     @OneToOne(_ => UserProfile, profile => profile.user)
     profile: UserProfile;
 
