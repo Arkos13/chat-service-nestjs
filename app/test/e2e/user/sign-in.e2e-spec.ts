@@ -1,29 +1,24 @@
 import {INestApplication} from "@nestjs/common";
-import {Connection, EntityManager, QueryRunner} from "typeorm";
-import {Test} from "@nestjs/testing";
+import {EntityManager} from "typeorm";
+import {TestingModule} from "@nestjs/testing";
 import * as request from 'supertest';
 import { EMAIL, EMAIL_NOT_CONFIRMED, PASSWORD } from "../../test-data";
-import {AppModule} from "../../../src/app.module";
+import {getEntityManagerToken} from "@nestjs/typeorm";
+import {testModule} from "../test.module";
 
 describe("SignInAction", () => {
     let app: INestApplication;
-    let queryRunner: QueryRunner;
+    let moduleTest: TestingModule;
 
     beforeAll(async () => {
-        const moduleTest = await Test.createTestingModule({
-            imports: [AppModule]
-        }).compile();
+        moduleTest = await testModule.compile();
         app = moduleTest.createNestApplication();
         await app.init();
-
-        const connection = moduleTest.get(Connection);
-        const manager = moduleTest.get(EntityManager);
-        // @ts-ignore
-        queryRunner = manager.queryRunner = connection.createQueryRunner();
     })
 
     beforeEach(async () => {
-        await queryRunner.startTransaction();
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.startTransaction();
     });
 
     it('/api/auth/token (POST)', () => {
@@ -88,10 +83,12 @@ describe("SignInAction", () => {
     });
 
     afterEach(async () => {
-        await queryRunner.rollbackTransaction();
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.rollbackTransaction();
     });
 
     afterAll(async () => {
         await app.close();
+        await moduleTest.close();
     })
 });
