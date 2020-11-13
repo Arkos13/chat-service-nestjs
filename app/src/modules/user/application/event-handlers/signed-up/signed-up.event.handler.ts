@@ -1,9 +1,9 @@
 import {EventsHandler, IEventHandler} from "@nestjs/cqrs";
 import {UserSignedUpEvent} from "../../../model/events/user-signed-up.event";
 import {UserRepository} from "../../../infrastructure/repositories/user.repository";
-import {Logger} from "@nestjs/common";
+import {Inject, Logger} from "@nestjs/common";
 import {v4 as uuidv4} from "uuid";
-import {SimpleMailService} from "../../services/mail/simple-mail-service";
+import {MailServiceInterface} from "../../services/mail/mail-service.interface";
 
 
 @EventsHandler(UserSignedUpEvent)
@@ -11,7 +11,8 @@ export class SignedUpEventHandler implements IEventHandler<UserSignedUpEvent> {
     constructor(
         private readonly userRepository: UserRepository,
         private readonly logger: Logger,
-        private readonly mailService: SimpleMailService,
+        @Inject('MailServiceInterface')
+        private readonly mailService: MailServiceInterface,
     ) {}
 
     async handle(event: UserSignedUpEvent): Promise<any> {
@@ -28,7 +29,9 @@ export class SignedUpEventHandler implements IEventHandler<UserSignedUpEvent> {
         this.mailService.sendEmail(
             user.email,
             "Confirm account",
-            user.confirmToken
+            user.confirmToken,
+            false,
+            []
         );
     }
 

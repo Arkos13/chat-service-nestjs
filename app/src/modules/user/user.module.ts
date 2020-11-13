@@ -44,7 +44,10 @@ export const EventHandlers = [SignedUpEventHandler];
     ],
     providers: [
         Logger,
-        SimpleMailService,
+        {
+            provide: 'MailServiceInterface',
+            useClass: SimpleMailService,
+        },
         UserRepository,
         UserProfileRepository,
         PasswordHasherArgon2i,
