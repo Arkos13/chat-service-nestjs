@@ -16,9 +16,21 @@ import {UserProfileRepository} from "./infrastructure/repositories/user-profile.
 import {SimpleMailService} from "./application/services/mail/simple-mail-service";
 import {ConfirmAction} from "./ports/rest/actions/confirm.action";
 import {ConfirmCommandHandler} from "./application/commands/confirm/confirm.command.handler";
+import {ConfirmEmailTokenFactory} from "./application/services/confirm-email-token/factory/confirm-email-token.factory";
+import {SendChangeEmailInviteAction} from "./ports/rest/actions/email/send-change-email-invite.action";
+import {ConfirmEmailTokenRepository} from "./infrastructure/repositories/confirm-email-token.repository";
+import {ConfirmEmailAction} from "./ports/rest/actions/email/confirm-email.action";
+import {SendChangeInviteCommandHandler} from "./application/commands/email/send-change-invite/send-change-invite.command.handler";
+import {ConfirmEmailCommandHandler} from "./application/commands/email/confirm-email/confirm-email.command.handler";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
-export const CommandHandlers = [SignInCommandHandler, SignUpCommandHandler, ConfirmCommandHandler];
+export const CommandHandlers = [
+    SignInCommandHandler,
+    SignUpCommandHandler,
+    ConfirmCommandHandler,
+    SendChangeInviteCommandHandler,
+    ConfirmEmailCommandHandler,
+];
 export const EventHandlers = [SignedUpEventHandler];
 
 @Module({
@@ -41,6 +53,8 @@ export const EventHandlers = [SignedUpEventHandler];
         SignInAction,
         SignUpAction,
         ConfirmAction,
+        SendChangeEmailInviteAction,
+        ConfirmEmailAction,
     ],
     providers: [
         Logger,
@@ -50,7 +64,9 @@ export const EventHandlers = [SignedUpEventHandler];
         },
         UserRepository,
         UserProfileRepository,
+        ConfirmEmailTokenRepository,
         PasswordHasherArgon2i,
+        ConfirmEmailTokenFactory,
         ...QueryHandlers,
         ...CommandHandlers,
         ...EventHandlers,

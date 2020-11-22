@@ -1,0 +1,15 @@
+entity: ConfirmEmailToken
+items:
+  confirmEmailToken0:
+    id: '1eb2cb82-c2be-6190-758c-a5e10204cc7a'
+    userId: '@user2'
+    email: 'test3@gmail.com'
+    confirmationToken: '1eb2cb86-637a-6720-b7a9-126a57cb118c'
+    expires: '2025-12-01 00:00:00'
+
+  confirmEmailToken1:
+    id: '1eb2cb87-4dd8-6010-e3b5-443387c5366b'
+    userId: '@user2'
+    email: 'test3@gmail.com'
+    confirmationToken: '1eb2cb87-c0bb-6a00-6678-88a04113d040'
+    expires: '2020-01-01 00:00:00'

@@ -4,9 +4,15 @@ items:
     id: '5eab9af1-fa77-4330-8a9b-caa3225ff6eb'
     email: 'test@gmail.com'
     password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
+    jwtToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTYwNjA0NTkyMSwiZXhwIjoyMzYzNDI4MzIxfQ.Qh7-Pz6IK8mOa3ww6pD6XWdTYN0JXqbiMPUmYPlDBVgw56vK57uwTwOZvMzspWe2uwCz11KmrPLNpusCBMZT-ACbYrvTmzL9TdwM9W4oD-iQTEjx6bLGmr4r296mx4bg-o-zyQpMQNruvUR8yg0Y3dCPXT-5zufHSrYVtGImuw4'
 
   user1:
     id: 'd21f538b-0533-4dce-b193-b5e1db61dc96'
     email: 'test1@gmail.com'
     password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
     confirmToken: '123'
+
+  user2:
+    id: '1eb2cb7e-4c67-6220-6add-2f8e537c1faf'
+    email: 'test2@gmail.com'
+    password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
