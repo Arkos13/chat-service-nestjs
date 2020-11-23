@@ -17,4 +17,8 @@ export class UserProfileRepository implements UserProfileRepositoryInterface {
         await this.repository.save(profile);
     }
 
+    findOneByUserId(userId: string): Promise<UserProfile|undefined> {
+        return this.repository.findOne({where: {userId}});
+    }
+
 }

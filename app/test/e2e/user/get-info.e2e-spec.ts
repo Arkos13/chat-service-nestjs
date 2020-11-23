@@ -1,0 +1,57 @@
+import {INestApplication} from "@nestjs/common";
+import {EntityManager} from "typeorm";
+import {TestingModule} from "@nestjs/testing";
+import * as request from 'supertest';
+import { EMAIL } from "../../test-data";
+import {getEntityManagerToken} from "@nestjs/typeorm";
+import {testModule} from "../test.module";
+import {strictEqual} from "assert";
+
+describe("GetInfoAction", () => {
+    let app: INestApplication;
+    let moduleTest: TestingModule;
+
+    beforeAll(async () => {
+        moduleTest = await testModule.compile();
+        app = moduleTest.createNestApplication();
+        await app.init();
+    })
+
+    beforeEach(async () => {
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.startTransaction();
+    });
+
+    it('/api/users/by_email/{email} (GET)', () => {
+        return request(app.getHttpServer())
+            .get(`/api/users/by_email/${EMAIL}`)
+            .set('Content-Type', 'application/json')
+            .expect(200)
+            .then(response => {
+                strictEqual(response.body.id, '5eab9af1-fa77-4330-8a9b-caa3225ff6eb');
+                strictEqual(response.body.email, 'test@gmail.com');
+            });
+    });
+
+    it('/api/users/by_email/{email} (GET)', () => {
+        return request(app.getHttpServer())
+            .get(`/api/users/by_email/test`)
+            .set('Content-Type', 'application/json')
+            .expect(400)
+            .expect({
+                "statusCode": 400,
+                "message": "User with email test not found",
+                "error": "Bad Request"
+            });
+    });
+
+    afterEach(async () => {
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.rollbackTransaction();
+    });
+
+    afterAll(async () => {
+        await app.close();
+        await moduleTest.close();
+    })
+});

@@ -22,6 +22,10 @@ import {ConfirmEmailTokenRepository} from "./infrastructure/repositories/confirm
 import {ConfirmEmailAction} from "./ports/rest/actions/email/confirm-email.action";
 import {SendChangeInviteCommandHandler} from "./application/commands/email/send-change-invite/send-change-invite.command.handler";
 import {ConfirmEmailCommandHandler} from "./application/commands/email/confirm-email/confirm-email.command.handler";
+import {EditProfileCommandHandler} from "./application/commands/profile/edit/edit-profile.command.handler";
+import {EditProfileAction} from "./ports/rest/actions/profile/edit-profile.action";
+import {GetInfoQueryHandler} from "./application/queries/get-info/get-info.query.handler";
+import {GetInfoAction} from "./ports/rest/actions/get-info.action";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
 export const CommandHandlers = [
@@ -30,6 +34,8 @@ export const CommandHandlers = [
     ConfirmCommandHandler,
     SendChangeInviteCommandHandler,
     ConfirmEmailCommandHandler,
+    EditProfileCommandHandler,
+    GetInfoQueryHandler,
 ];
 export const EventHandlers = [SignedUpEventHandler];
 
@@ -55,6 +61,8 @@ export const EventHandlers = [SignedUpEventHandler];
         ConfirmAction,
         SendChangeEmailInviteAction,
         ConfirmEmailAction,
+        EditProfileAction,
+        GetInfoAction,
     ],
     providers: [
         Logger,

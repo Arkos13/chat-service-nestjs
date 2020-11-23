@@ -14,7 +14,7 @@ export class UserRepository implements UserRepositoryInterface {
     }
 
     findOneByEmail(email: string): Promise<User | undefined> {
-        return this.repository.findOne({ where: { email } });
+        return this.repository.findOne({ where: { email }, relations: ["profile"] });
     }
 
     async save(user: User): Promise<void> {

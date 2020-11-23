@@ -23,4 +23,9 @@ export class UserProfile {
         userProfile.lastName = lastName;
         return userProfile;
     }
+
+    public edit(firstName: string, lastName: string): void {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
