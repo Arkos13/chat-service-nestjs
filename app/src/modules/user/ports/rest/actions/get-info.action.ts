@@ -22,7 +22,7 @@ export class GetInfoAction {
     public async action(@Param() params): Promise<UserInfoDto> {
 
         try {
-            return this.queryBus.execute(
+            return await this.queryBus.execute(
                 new GetInfoQuery(params.email)
             );
         } catch (e) {

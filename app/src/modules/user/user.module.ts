@@ -31,7 +31,7 @@ import {RecoveryPasswordCommandHandler} from "./application/commands/password/re
 import {ResendEmailInviteRecoveryPasswordAction} from "./ports/rest/actions/password/resend-email-invite-recovery-password.action";
 import {RecoveryPasswordAction} from "./ports/rest/actions/password/recovery-password.action";
 
-export const QueryHandlers = [GetAccessTokenQueryHandler];
+export const QueryHandlers = [GetAccessTokenQueryHandler, GetInfoQueryHandler];
 export const CommandHandlers = [
     SignInCommandHandler,
     SignUpCommandHandler,
@@ -39,7 +39,6 @@ export const CommandHandlers = [
     SendChangeInviteCommandHandler,
     ConfirmEmailCommandHandler,
     EditProfileCommandHandler,
-    GetInfoQueryHandler,
     SendInviteRecoveryPasswordCommandHandler,
     RecoveryPasswordCommandHandler,
 ];
