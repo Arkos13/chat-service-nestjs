@@ -26,6 +26,10 @@ import {EditProfileCommandHandler} from "./application/commands/profile/edit/edi
 import {EditProfileAction} from "./ports/rest/actions/profile/edit-profile.action";
 import {GetInfoQueryHandler} from "./application/queries/get-info/get-info.query.handler";
 import {GetInfoAction} from "./ports/rest/actions/get-info.action";
+import {SendInviteRecoveryPasswordCommandHandler} from "./application/commands/password/send-invite-recovery/send-invite-recovery-password.command.handler";
+import {RecoveryPasswordCommandHandler} from "./application/commands/password/recovery/recovery-password.command.handler";
+import {ResendEmailInviteRecoveryPasswordAction} from "./ports/rest/actions/password/resend-email-invite-recovery-password.action";
+import {RecoveryPasswordAction} from "./ports/rest/actions/password/recovery-password.action";
 
 export const QueryHandlers = [GetAccessTokenQueryHandler];
 export const CommandHandlers = [
@@ -36,6 +40,8 @@ export const CommandHandlers = [
     ConfirmEmailCommandHandler,
     EditProfileCommandHandler,
     GetInfoQueryHandler,
+    SendInviteRecoveryPasswordCommandHandler,
+    RecoveryPasswordCommandHandler,
 ];
 export const EventHandlers = [SignedUpEventHandler];
 
@@ -63,6 +69,8 @@ export const EventHandlers = [SignedUpEventHandler];
         ConfirmEmailAction,
         EditProfileAction,
         GetInfoAction,
+        ResendEmailInviteRecoveryPasswordAction,
+        RecoveryPasswordAction,
     ],
     providers: [
         Logger,
