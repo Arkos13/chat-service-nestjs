@@ -5,3 +5,8 @@ items:
     title: 'test title'
     created: '2020-11-01 00:00:00'
     updated: '2020-11-01 00:00:00'
+  chat1:
+    id: 'a5fe0d1e-359c-4c6c-96b6-3a92e49da278'
+    title: 'test title'
+    created: '2020-11-02 00:00:00'
+    updated: '2020-11-02 00:00:00'

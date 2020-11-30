@@ -15,9 +15,13 @@ import {JwtModule} from "@nestjs/jwt";
 import {ChatRepository} from "./infrastructure/repositories/chat.repository";
 import {ChatMessageRepository} from "./infrastructure/repositories/chat-message.repository";
 import {ChatUserRepository} from "./infrastructure/repositories/chat-user.repository";
+import {ReadChatInterceptor} from "./infrastructure/interceptors/read-chat.interceptor";
+import {DetachChatUserAction} from "./ports/rest/actions/chat-user/detach-chat-user.action";
+import {DetachChatUserCommandHandler} from "./application/commands/chat-user/detach/detach-chat-user.command.handler";
 
-const CommandHandlers = [CreateChatCommandHandler];
+const CommandHandlers = [CreateChatCommandHandler, DetachChatUserCommandHandler];
 const QueryHandlers = [GetChatQueryHandler, GetChatsByUserQueryHandler];
+const Interceptors = [ReadChatInterceptor];
 
 @Module({
     imports: [
@@ -36,10 +40,12 @@ const QueryHandlers = [GetChatQueryHandler, GetChatsByUserQueryHandler];
     controllers: [
         CreateChatAction,
         GetChatsByUserAction,
+        DetachChatUserAction,
     ],
     providers: [
         ...CommandHandlers,
         ...QueryHandlers,
+        ...Interceptors,
         ChatRepository,
         ChatMessageRepository,
         ChatUserRepository,

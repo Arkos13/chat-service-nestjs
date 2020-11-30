@@ -10,3 +10,14 @@ items:
     chatId: '@chat0'
     created: '2020-11-01 00:00:00'
     isDeleted: false
+
+  chatUser2:
+    userId: '@user2'
+    chatId: '@chat1'
+    created: '2020-11-01 00:00:00'
+    isDeleted: false
+  chatUser3:
+    userId: '@user3'
+    chatId: '@chat1'
+    created: '2020-11-01 00:00:00'
+    isDeleted: false

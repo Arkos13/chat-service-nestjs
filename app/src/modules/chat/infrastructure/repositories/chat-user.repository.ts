@@ -22,4 +22,8 @@ export class ChatUserRepository implements ChatUserRepositoryInterface {
         await this.repository.save(chatUser);
     }
 
+    getOneByChatIdAndUserId(chatId: string, userId: string): Promise<ChatUser> {
+        return this.repository.findOneOrFail({where: {chatId, userId}})
+    }
+
 }
