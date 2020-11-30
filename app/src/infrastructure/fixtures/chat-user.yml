@@ -1,0 +1,12 @@
+entity: ChatUser
+items:
+  chatUser0:
+    userId: '@user0'
+    chatId: '@chat0'
+    created: '2020-11-01 00:00:00'
+    isDeleted: false
+  chatUser1:
+    userId: '@user2'
+    chatId: '@chat0'
+    created: '2020-11-01 00:00:00'
+    isDeleted: false

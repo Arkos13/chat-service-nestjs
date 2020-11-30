@@ -5,3 +5,5 @@ export const PASSWORD = "123456";
 export const CONFIRM_TOKEN = "123";
 export const CONFIRM_EMAIL_TOKEN = "1eb2cb86-637a-6720-b7a9-126a57cb118c";
 export const INVALID_CONFIRM_EMAIL_TOKEN = "1eb2cb87-c0bb-6a00-6678-88a04113d040";
+export const USER_3_ID = "cda001fc-36ce-4398-b3ea-4559401fb9c9";
+export const USER_2_ID = "1eb2cb7e-4c67-6220-6add-2f8e537c1faf";

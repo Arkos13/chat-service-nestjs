@@ -2,11 +2,11 @@ import {INestApplication} from "@nestjs/common";
 import {EntityManager} from "typeorm";
 import {TestingModule} from "@nestjs/testing";
 import * as request from 'supertest';
-import { EMAIL, PASSWORD } from "../../test-data";
-import {testModule} from "../test.module";
 import {getEntityManagerToken} from "@nestjs/typeorm";
+import {testModule} from "../test.module";
+import {JWT_TOKEN} from "../../test-data";
 
-describe("SignUpAction", () => {
+describe("GetChatsByUserAction", () => {
     let app: INestApplication;
     let moduleTest: TestingModule;
 
@@ -21,35 +21,20 @@ describe("SignUpAction", () => {
         await em.queryRunner.startTransaction();
     });
 
-    it('/api/auth/registration (POST)', () => {
+    it('/api/chats (GET)', () => {
         return request(app.getHttpServer())
-            .post('/api/auth/registration')
-            .send({
-                email: "test333@gmail.com",
-                password: PASSWORD,
-                firstName: "test",
-                lastName: "test"
-            })
+            .get(`/api/chats`)
             .set('Content-Type', 'application/json')
+            .set('Authorization', `Bearer ${JWT_TOKEN}`)
             .expect(200)
-            .expect(Boolean);
-    });
-
-    it('/api/auth/registration (POST) - invalid email', () => {
-        return request(app.getHttpServer())
-            .post('/api/auth/registration')
-            .send({
-                email: EMAIL,
-                password: PASSWORD,
-                firstName: "test",
-                lastName: "test"
-            })
-            .set('Content-Type', 'application/json')
-            .expect(400)
-            .expect({
-                "statusCode": 400,
-                "message": "This email already exists",
-                "error": "Bad Request"
+            .then(response => {
+                expect(response.body.total).toEqual(1);
+                expect(response.body.pages).toEqual(1);
+                expect(response.body.items).toEqual(
+                    expect.arrayContaining([
+                        expect.objectContaining({id: "845f2dde-efb3-4940-a449-3b5106ac78eb"})
+                    ])
+                );
             });
     });
 

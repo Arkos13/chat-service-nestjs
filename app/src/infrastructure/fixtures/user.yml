@@ -16,3 +16,8 @@ items:
     id: '1eb2cb7e-4c67-6220-6add-2f8e537c1faf'
     email: 'test2@gmail.com'
     password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456
+
+  user3:
+    id: 'cda001fc-36ce-4398-b3ea-4559401fb9c9'
+    email: 'test3@gmail.com'
+    password: $argon2i$v=19$m=16,t=2,p=1$RnNkNEx0SUJVYm53YmVHRg$lXbn0DhU14BPEMrD8SwmCg #123456

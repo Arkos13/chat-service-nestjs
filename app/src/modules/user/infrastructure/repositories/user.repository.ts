@@ -5,6 +5,7 @@ import {Injectable} from "@nestjs/common";
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
+
     private repository: Repository<User>;
 
     constructor(
@@ -23,6 +24,10 @@ export class UserRepository implements UserRepositoryInterface {
 
     findOneByConfirmationToken(token: string): Promise<User | undefined> {
         return this.repository.findOne({ where: { confirmToken: token }});
+    }
+
+    findOneById(id: string): Promise<User | undefined> {
+        return this.repository.findOne({where: {id}});
     }
 
 }

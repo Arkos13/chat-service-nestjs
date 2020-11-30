@@ -34,6 +34,9 @@ export class ChatMessage {
     @Column()
     message: string;
 
+    @Column({type: "simple-array"})
+    userReads: string[];
+
     static create(id: string,
                   user: User,
                   chat: Chat,
@@ -46,6 +49,15 @@ export class ChatMessage {
         chatMessage.created = moment().format('YYYY-MM-DD HH:mm:ss');
         chatMessage.type = type;
         chatMessage.message = message;
+        chatMessage.userReads = [user.id];
         return chatMessage;
+    }
+
+    getSimpleDate() {
+        return {
+            message: this.message,
+            created: this.created,
+            userId: this.user.id,
+        };
     }
 }

@@ -1,0 +1,7 @@
+entity: Chat
+items:
+  chat0:
+    id: '845f2dde-efb3-4940-a449-3b5106ac78eb'
+    title: 'test title'
+    created: '2020-11-01 00:00:00'
+    updated: '2020-11-01 00:00:00'

@@ -9,3 +9,13 @@ items:
     userId: '@user1'
     firstName: '{{name.firstName}}'
     lastName: '{{name.lastName}}'
+
+  profile2:
+    userId: '@user2'
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'
+
+  profile3:
+    userId: '@user3'
+    firstName: '{{name.firstName}}'
+    lastName: '{{name.lastName}}'

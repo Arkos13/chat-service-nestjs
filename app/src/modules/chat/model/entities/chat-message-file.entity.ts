@@ -23,6 +23,9 @@ export class ChatMessageFile {
     @Column()
     name: string;
 
+    @Column()
+    size: number;
+
     @Column({type: 'timestamp'})
     created: string;
 
@@ -31,7 +34,8 @@ export class ChatMessageFile {
                   path: string,
                   mimeType: string,
                   originalName: string,
-                  name: string): ChatMessageFile {
+                  name: string,
+                  size: number): ChatMessageFile {
         const file = new ChatMessageFile();
         file.id = id;
         file.chatMessage = chatMessage;
@@ -39,6 +43,7 @@ export class ChatMessageFile {
         file.mimeType = mimeType;
         file.originalName = originalName;
         file.name = name;
+        file.size = size;
         file.created = moment().format('YYYY-MM-DD HH:mm:ss');
         return file;
     }
