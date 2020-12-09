@@ -1,8 +1,6 @@
 import {INestApplication} from "@nestjs/common";
-import {EntityManager} from "typeorm";
 import {TestingModule} from "@nestjs/testing";
 import * as request from 'supertest';
-import {getEntityManagerToken} from "@nestjs/typeorm";
 import {testModule} from "../test.module";
 import {JWT_TOKEN} from "../../test-data";
 
@@ -15,11 +13,6 @@ describe("GetChatsByUserAction", () => {
         app = moduleTest.createNestApplication();
         await app.init();
     })
-
-    beforeEach(async () => {
-        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
-        await em.queryRunner.startTransaction();
-    });
 
     it('/api/chats (GET)', () => {
         return request(app.getHttpServer())
@@ -36,11 +29,6 @@ describe("GetChatsByUserAction", () => {
                     ])
                 );
             });
-    });
-
-    afterEach(async () => {
-        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
-        await em.queryRunner.rollbackTransaction();
     });
 
     afterAll(async () => {

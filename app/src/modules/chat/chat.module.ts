@@ -18,9 +18,15 @@ import {ChatUserRepository} from "./infrastructure/repositories/chat-user.reposi
 import {ReadChatInterceptor} from "./infrastructure/interceptors/read-chat.interceptor";
 import {DetachChatUserAction} from "./ports/rest/actions/chat-user/detach-chat-user.action";
 import {DetachChatUserCommandHandler} from "./application/commands/chat-user/detach/detach-chat-user.command.handler";
+import {CreateChatMessageFileAction} from "./ports/rest/actions/chat-message/file/create-chat-message-file.action";
+import {MulterModule} from "@nestjs/platform-express";
+import {MulterConfigService} from "./infrastructure/services/multer-config.service";
+import {CreateFileCommandHandler} from "./application/commands/chat-message/create-file/create-file.command.handler";
+import {GetFileByIdQueryHandler} from "./application/queries/chat-message/get-file-by-id/get-file-by-id.query.handler";
+import {ChatMessageFileRepository} from "./infrastructure/repositories/chat-message-file.repository";
 
-const CommandHandlers = [CreateChatCommandHandler, DetachChatUserCommandHandler];
-const QueryHandlers = [GetChatQueryHandler, GetChatsByUserQueryHandler];
+const CommandHandlers = [CreateChatCommandHandler, DetachChatUserCommandHandler, CreateFileCommandHandler];
+const QueryHandlers = [GetChatQueryHandler, GetChatsByUserQueryHandler, GetFileByIdQueryHandler];
 const Interceptors = [ReadChatInterceptor];
 
 @Module({
@@ -36,11 +42,15 @@ const Interceptors = [ReadChatInterceptor];
                 algorithm: 'RS256',
             }
         }),
+        MulterModule.registerAsync({
+            useClass: MulterConfigService,
+        })
     ],
     controllers: [
         CreateChatAction,
         GetChatsByUserAction,
         DetachChatUserAction,
+        CreateChatMessageFileAction,
     ],
     providers: [
         ...CommandHandlers,
@@ -49,6 +59,7 @@ const Interceptors = [ReadChatInterceptor];
         ChatRepository,
         ChatMessageRepository,
         ChatUserRepository,
+        ChatMessageFileRepository,
     ]
 })
 export class ChatModule {}

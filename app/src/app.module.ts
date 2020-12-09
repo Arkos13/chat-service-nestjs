@@ -6,9 +6,14 @@ import {UserModule} from "./modules/user/user.module";
 import {AuthModule} from "./modules/auth/auth.module";
 import {ChatModule} from "./modules/chat/chat.module";
 import {MailerModule} from "@nestjs-modules/mailer";
+import {ServeStaticModule} from "@nestjs/serve-static";
+import { join } from 'path';
 
 @Module({
   imports: [
+      ServeStaticModule.forRoot({
+          rootPath: join(__dirname, '..', 'public'),
+      }),
       TypeOrmModule.forRoot(dbConfig),
       MailerModule.forRoot(mailerConfig),
       AuthModule,

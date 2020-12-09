@@ -9,7 +9,7 @@ export class ChatMessageFile {
 
     @ManyToOne(_ => ChatMessage)
     @JoinColumn({name: 'chatMessageId'})
-    chatMessage: ChatMessage;
+    chatMessage?: ChatMessage;
 
     @Column()
     path: string;
@@ -30,7 +30,6 @@ export class ChatMessageFile {
     created: string;
 
     static create(id: string,
-                  chatMessage: ChatMessage,
                   path: string,
                   mimeType: string,
                   originalName: string,
@@ -38,7 +37,6 @@ export class ChatMessageFile {
                   size: number): ChatMessageFile {
         const file = new ChatMessageFile();
         file.id = id;
-        file.chatMessage = chatMessage;
         file.path = path;
         file.mimeType = mimeType;
         file.originalName = originalName;
@@ -47,4 +45,5 @@ export class ChatMessageFile {
         file.created = moment().format('YYYY-MM-DD HH:mm:ss');
         return file;
     }
+
 }
