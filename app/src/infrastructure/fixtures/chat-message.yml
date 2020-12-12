@@ -1,0 +1,20 @@
+entity: ChatMessage
+items:
+  chatMessage0:
+    id: '573fb256-8593-4db5-884f-f296a15130e0'
+    message: 'test'
+    userId: '@user0'
+    chatId: '@chat0'
+    type: 'simple'
+    userReads: ""
+    created: '2020-12-01 00:00:00'
+    updated: '2020-12-01 00:00:00'
+  chatMessage1:
+    id: 'ac31dd83-27be-4861-9859-15576519f492'
+    message: 'test'
+    userId: '@user2'
+    chatId: '@chat1'
+    type: 'simple'
+    userReads: ""
+    created: '2020-12-01 00:00:00'
+    updated: '2020-12-01 00:00:00'

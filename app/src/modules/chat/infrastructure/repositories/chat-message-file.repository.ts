@@ -18,8 +18,16 @@ export class ChatMessageFileRepository implements ChatMessageFileRepositoryInter
         return this.repository.findOneOrFail(id);
     }
 
+    getOneByIdWithoutMessage(id: string): Promise<ChatMessageFile> {
+        return this.repository.findOneOrFail(id, {where: {chatMessageId: null}});
+    }
+
     async save(file: ChatMessageFile): Promise<void> {
         await this.repository.save(file);
+    }
+
+    findAllByChatMessageId(chatMessageId: string): Promise<ChatMessageFile[]> {
+        return this.repository.find({where: {chatMessageId}});
     }
 
 }

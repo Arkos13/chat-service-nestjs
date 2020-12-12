@@ -12,6 +12,9 @@ export class ChatMessageFile {
     chatMessage?: ChatMessage;
 
     @Column()
+    chatMessageId?: string;
+
+    @Column()
     path: string;
 
     @Column()

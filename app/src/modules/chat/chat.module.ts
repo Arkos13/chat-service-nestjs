@@ -24,9 +24,22 @@ import {MulterConfigService} from "./infrastructure/services/multer-config.servi
 import {CreateFileCommandHandler} from "./application/commands/chat-message/create-file/create-file.command.handler";
 import {GetFileByIdQueryHandler} from "./application/queries/chat-message/get-file-by-id/get-file-by-id.query.handler";
 import {ChatMessageFileRepository} from "./infrastructure/repositories/chat-message-file.repository";
+import {CreateChatMessageCommandHandler} from "./application/commands/chat-message/create/create-chat-message.command.handler";
+import {GetChatMessageByIdQueryHandler} from "./application/queries/chat-message/get-chat-message-by-id/get-chat-message-by-id.query.handler";
+import {CreateChatMessageAction} from "./ports/rest/actions/chat-message/create-chat-message.action";
 
-const CommandHandlers = [CreateChatCommandHandler, DetachChatUserCommandHandler, CreateFileCommandHandler];
-const QueryHandlers = [GetChatQueryHandler, GetChatsByUserQueryHandler, GetFileByIdQueryHandler];
+const CommandHandlers = [
+    CreateChatCommandHandler,
+    DetachChatUserCommandHandler,
+    CreateFileCommandHandler,
+    CreateChatMessageCommandHandler,
+];
+const QueryHandlers = [
+    GetChatQueryHandler,
+    GetChatsByUserQueryHandler,
+    GetFileByIdQueryHandler,
+    GetChatMessageByIdQueryHandler,
+];
 const Interceptors = [ReadChatInterceptor];
 
 @Module({
@@ -51,6 +64,7 @@ const Interceptors = [ReadChatInterceptor];
         GetChatsByUserAction,
         DetachChatUserAction,
         CreateChatMessageFileAction,
+        CreateChatMessageAction,
     ],
     providers: [
         ...CommandHandlers,

@@ -9,3 +9,7 @@ export const USER_3_ID = "cda001fc-36ce-4398-b3ea-4559401fb9c9";
 export const USER_2_ID = "1eb2cb7e-4c67-6220-6add-2f8e537c1faf";
 export const CHAT_ID = "845f2dde-efb3-4940-a449-3b5106ac78eb";
 export const CHAT_2_ID = "a5fe0d1e-359c-4c6c-96b6-3a92e49da278";
+export const CHAT_MESSAGE_ID = "573fb256-8593-4db5-884f-f296a15130e0";
+export const CHAT_MESSAGE_2_ID = "ac31dd83-27be-4861-9859-15576519f492";
+export const CHAT_MESSAGE_FILE_ID = "401ca523-c589-472f-aefa-de63bbe2779c";
+export const CHAT_MESSAGE_FILE_2_ID = "9554190c-8efc-40f3-a1ef-2679764e2b8e";

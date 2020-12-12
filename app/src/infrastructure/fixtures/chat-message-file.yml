@@ -1,0 +1,19 @@
+entity: ChatMessageFile
+items:
+  chatMessageFile0:
+    id: '401ca523-c589-472f-aefa-de63bbe2779c'
+    path: 'test'
+    mimeType: 'image/png'
+    originalName: 'test'
+    name: 'test'
+    size: '123'
+    created: '2020-12-01 00:00:00'
+  chatMessageFile1:
+    id: '9554190c-8efc-40f3-a1ef-2679764e2b8e'
+    chatMessageId: '@chatMessage0'
+    path: 'test'
+    mimeType: 'image/png'
+    originalName: 'test'
+    name: 'test'
+    size: '123'
+    created: '2020-12-01 00:00:00'

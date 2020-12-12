@@ -3,7 +3,7 @@ import {User} from "../../../user/model/entities/user.entity";
 import {Chat} from "./chat.entity";
 import * as moment from "moment";
 
-export type ChatMessageType = "simple" | "forward" | "quote";
+export type ChatMessageType = "simple" | "quote";
 
 @Entity({name: 'chat_messages'})
 export class ChatMessage {
@@ -17,6 +17,9 @@ export class ChatMessage {
     @ManyToOne(_ => Chat)
     @JoinColumn({name: 'chatId'})
     chat: Chat;
+
+    @Column()
+    chatId: string;
 
     @ManyToOne(_ => ChatMessage, {nullable: true})
     @JoinColumn({name: 'parentId'})
@@ -46,6 +49,7 @@ export class ChatMessage {
         chatMessage.id = id;
         chatMessage.user = user;
         chatMessage.chat = chat;
+        chatMessage.chatId = chat.id;
         chatMessage.created = moment().format('YYYY-MM-DD HH:mm:ss');
         chatMessage.type = type;
         chatMessage.message = message;
@@ -59,5 +63,13 @@ export class ChatMessage {
             created: this.created,
             userId: this.user.id,
         };
+    }
+
+    getFirstNameUser(): string {
+        return this.user.profile.firstName;
+    }
+
+    getLastNameUser(): string {
+        return this.user.profile.lastName;
     }
 }

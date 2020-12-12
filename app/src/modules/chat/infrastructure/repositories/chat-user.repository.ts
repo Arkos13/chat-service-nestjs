@@ -23,7 +23,7 @@ export class ChatUserRepository implements ChatUserRepositoryInterface {
     }
 
     getOneByChatIdAndUserId(chatId: string, userId: string): Promise<ChatUser> {
-        return this.repository.findOneOrFail({where: {chatId, userId}})
+        return this.repository.findOneOrFail({where: {chatId, userId}, relations: ['user', 'chat']})
     }
 
 }
