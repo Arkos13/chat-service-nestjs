@@ -14,6 +14,9 @@ export class ChatMessage {
     @JoinColumn({name: 'userId'})
     user: User;
 
+    @Column()
+    userId: string;
+
     @ManyToOne(_ => Chat)
     @JoinColumn({name: 'chatId'})
     chat: Chat;
@@ -48,6 +51,7 @@ export class ChatMessage {
         const chatMessage = new ChatMessage();
         chatMessage.id = id;
         chatMessage.user = user;
+        chatMessage.userId = user.id;
         chatMessage.chat = chat;
         chatMessage.chatId = chat.id;
         chatMessage.created = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -61,7 +65,7 @@ export class ChatMessage {
         return {
             message: this.message,
             created: this.created,
-            userId: this.user.id,
+            userId: this.userId,
         };
     }
 

@@ -3,6 +3,8 @@ import {TestingModule} from "@nestjs/testing";
 import * as request from 'supertest';
 import {JWT_TOKEN, USER_2_ID, USER_3_ID} from "../../test-data";
 import {testModule} from "../test.module";
+import {EntityManager} from "typeorm";
+import {getEntityManagerToken} from "@nestjs/typeorm";
 
 describe("CreateChatAction", () => {
     let app: INestApplication;
@@ -13,6 +15,11 @@ describe("CreateChatAction", () => {
         app = moduleTest.createNestApplication();
         await app.init();
     })
+
+    beforeEach(async () => {
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.startTransaction();
+    });
 
     it('/api/chats (POST)', () => {
         return request(app.getHttpServer())
@@ -38,9 +45,12 @@ describe("CreateChatAction", () => {
             })
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${JWT_TOKEN}`)
-            .then(response => {
-                expect(response.body.created).not.toEqual(response.body.updated);
-            });
+            .expect(200);
+    });
+
+    afterEach(async () => {
+        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
+        await em.queryRunner.rollbackTransaction();
     });
 
     afterAll(async () => {

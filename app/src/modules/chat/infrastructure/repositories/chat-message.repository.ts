@@ -45,7 +45,7 @@ export class ChatMessageRepository implements ChatMessageRepositoryInterface {
             return undefined;
         }
 
-        return this.repository.findOne({where: {id: message.id}});
+        return this.repository.findOne({where: {id: message.id}, relations: ["user"]});
     }
 
     getOneByIdAndChatId(id: string, chatId: string): Promise<ChatMessage> {
