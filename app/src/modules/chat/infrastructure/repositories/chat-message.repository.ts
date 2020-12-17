@@ -62,4 +62,8 @@ export class ChatMessageRepository implements ChatMessageRepositoryInterface {
     async save(message: ChatMessage): Promise<void> {
         await this.repository.save(message);
     }
+
+    async remove(message: ChatMessage): Promise<void> {
+        await this.repository.remove(message);
+    }
 }

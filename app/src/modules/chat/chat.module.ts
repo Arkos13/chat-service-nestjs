@@ -27,12 +27,17 @@ import {ChatMessageFileRepository} from "./infrastructure/repositories/chat-mess
 import {CreateChatMessageCommandHandler} from "./application/commands/chat-message/create/create-chat-message.command.handler";
 import {GetChatMessageByIdQueryHandler} from "./application/queries/chat-message/get-chat-message-by-id/get-chat-message-by-id.query.handler";
 import {CreateChatMessageAction} from "./ports/rest/actions/chat-message/create-chat-message.action";
+import {DeleteChatMessageCommandHandler} from "./application/commands/chat-message/delete/delete-chat-message.command.handler";
+import {DeleteChatMessageAction} from "./ports/rest/actions/chat-message/delete-chat-message.action";
+import {FileSystem} from "../../shared/services/file/system/file-system";
+import {ManageChatMessageInterceptor} from "./infrastructure/interceptors/manage-chat-message.interceptor";
 
 const CommandHandlers = [
     CreateChatCommandHandler,
     DetachChatUserCommandHandler,
     CreateFileCommandHandler,
     CreateChatMessageCommandHandler,
+    DeleteChatMessageCommandHandler,
 ];
 const QueryHandlers = [
     GetChatQueryHandler,
@@ -40,7 +45,7 @@ const QueryHandlers = [
     GetFileByIdQueryHandler,
     GetChatMessageByIdQueryHandler,
 ];
-const Interceptors = [ReadChatInterceptor];
+const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
 
 @Module({
     imports: [
@@ -65,6 +70,7 @@ const Interceptors = [ReadChatInterceptor];
         DetachChatUserAction,
         CreateChatMessageFileAction,
         CreateChatMessageAction,
+        DeleteChatMessageAction,
     ],
     providers: [
         ...CommandHandlers,
@@ -74,6 +80,7 @@ const Interceptors = [ReadChatInterceptor];
         ChatMessageRepository,
         ChatUserRepository,
         ChatMessageFileRepository,
+        FileSystem,
     ]
 })
 export class ChatModule {}

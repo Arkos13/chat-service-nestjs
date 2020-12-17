@@ -8,6 +8,7 @@ import {ChatModule} from "./modules/chat/chat.module";
 import {MailerModule} from "@nestjs-modules/mailer";
 import {ServeStaticModule} from "@nestjs/serve-static";
 import { join } from 'path';
+import {FileSystem} from "./shared/services/file/system/file-system";
 
 @Module({
   imports: [
@@ -21,6 +22,8 @@ import { join } from 'path';
       ChatModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+      FileSystem,
+  ],
 })
 export class AppModule {}

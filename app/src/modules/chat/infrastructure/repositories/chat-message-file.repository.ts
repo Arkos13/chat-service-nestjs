@@ -26,6 +26,10 @@ export class ChatMessageFileRepository implements ChatMessageFileRepositoryInter
         await this.repository.save(file);
     }
 
+    async remove(file: ChatMessageFile): Promise<void> {
+        await this.repository.remove(file);
+    }
+
     findAllByChatMessageId(chatMessageId: string): Promise<ChatMessageFile[]> {
         return this.repository.find({where: {chatMessageId}});
     }

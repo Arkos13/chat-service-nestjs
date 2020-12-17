@@ -6,4 +6,5 @@ export interface ChatMessageRepositoryInterface {
     getOneByIdAndChatId(id: string, chatId: string): Promise<ChatMessage>
     getOneById(id: string): Promise<ChatMessage>
     save(message: ChatMessage): Promise<void>;
+    remove(message: ChatMessage): Promise<void>;
 }
