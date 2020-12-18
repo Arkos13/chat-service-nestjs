@@ -33,6 +33,8 @@ import {FileSystem} from "../../shared/services/file/system/file-system";
 import {ManageChatMessageInterceptor} from "./infrastructure/interceptors/manage-chat-message.interceptor";
 import {GetChatMessagesQueryHandler} from "./application/queries/chat-message/get-chat-messages/get-chat-messages.query.handler";
 import {GetChatMessagesAction} from "./ports/rest/actions/chat-message/get-chat-messages.action";
+import {EditChatMessageCommandHandler} from "./application/commands/chat-message/edit/edit-chat-message.command.handler";
+import {EditChatMessageAction} from "./ports/rest/actions/chat-message/edit-chat-message.action";
 
 const CommandHandlers = [
     CreateChatCommandHandler,
@@ -40,6 +42,7 @@ const CommandHandlers = [
     CreateFileCommandHandler,
     CreateChatMessageCommandHandler,
     DeleteChatMessageCommandHandler,
+    EditChatMessageCommandHandler,
 ];
 const QueryHandlers = [
     GetChatQueryHandler,
@@ -75,6 +78,7 @@ const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
         CreateChatMessageAction,
         DeleteChatMessageAction,
         GetChatMessagesAction,
+        EditChatMessageAction,
     ],
     providers: [
         ...CommandHandlers,
