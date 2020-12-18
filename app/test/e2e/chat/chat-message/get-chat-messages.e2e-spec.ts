@@ -3,10 +3,8 @@ import {TestingModule} from "@nestjs/testing";
 import * as request from 'supertest';
 import {testModule} from "../../test.module";
 import {CHAT_2_ID, CHAT_ID, JWT_TOKEN} from "../../../test-data";
-import {EntityManager} from "typeorm";
-import {getEntityManagerToken} from "@nestjs/typeorm";
 
-describe("DetachChatUserAction", () => {
+describe("GetChatsByUserAction", () => {
     let app: INestApplication;
     let moduleTest: TestingModule;
 
@@ -16,31 +14,25 @@ describe("DetachChatUserAction", () => {
         await app.init();
     })
 
-    beforeEach(async () => {
-        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
-        await em.queryRunner.startTransaction();
-    });
-
-    it('/api/chats/:id/users/detach (DELETE)', () => {
+    it('/api/chats/:id/messages (GET)', () => {
         return request(app.getHttpServer())
-            .delete(`/api/chats/${CHAT_ID}/users/detach`)
+            .get(`/api/chats/${CHAT_ID}/messages`)
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${JWT_TOKEN}`)
             .expect(200)
-            .expect(Boolean);
+            .then(response => {
+                expect(response.body.total).toEqual(1);
+                expect(response.body.pages).toEqual(1);
+                expect(response.body.items.length).toEqual(1);
+            });
     });
 
-    it('/api/chats/:id/users/detach (DELETE) - forbidden', () => {
+    it('/api/chats/:id/messages (GET) - forbidden', () => {
         return request(app.getHttpServer())
-            .delete(`/api/chats/${CHAT_2_ID}/users/detach`)
+            .get(`/api/chats/${CHAT_2_ID}/messages`)
             .set('Content-Type', 'application/json')
             .set('Authorization', `Bearer ${JWT_TOKEN}`)
             .expect(403);
-    });
-
-    afterEach(async () => {
-        const em: EntityManager = moduleTest.get(getEntityManagerToken('default'));
-        await em.queryRunner.rollbackTransaction();
     });
 
     afterAll(async () => {

@@ -7,4 +7,6 @@ export interface ChatMessageRepositoryInterface {
     getOneById(id: string): Promise<ChatMessage>
     save(message: ChatMessage): Promise<void>;
     remove(message: ChatMessage): Promise<void>;
+    getByChatId(chatId: string, page: number, limit: number): Promise<ChatMessage[]>;
+    getCountByChatId(chatId: string): Promise<number>;
 }

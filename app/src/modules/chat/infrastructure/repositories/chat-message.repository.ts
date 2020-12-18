@@ -66,4 +66,24 @@ export class ChatMessageRepository implements ChatMessageRepositoryInterface {
     async remove(message: ChatMessage): Promise<void> {
         await this.repository.remove(message);
     }
+
+    async getByChatId(chatId: string, page: number, limit: number): Promise<ChatMessage[]> {
+        return this.repository.find({
+            where: {chatId},
+            relations: ['user', 'user.profile', 'chat', 'parent'],
+            take: page,
+            skip: (page - 1) * limit,
+        });
+    }
+
+    async getCountByChatId(chatId: string): Promise<number> {
+        const result = await this.em.connection.createQueryBuilder()
+            .select("count(cm.id)")
+            .from("chat_messages", "cm")
+            .andWhere("cm.chatId = :chatId")
+            .setParameter("chatId", chatId)
+            .getRawOne();
+
+        return +result.count;
+    }
 }

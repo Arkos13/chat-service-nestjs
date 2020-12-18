@@ -31,6 +31,8 @@ import {DeleteChatMessageCommandHandler} from "./application/commands/chat-messa
 import {DeleteChatMessageAction} from "./ports/rest/actions/chat-message/delete-chat-message.action";
 import {FileSystem} from "../../shared/services/file/system/file-system";
 import {ManageChatMessageInterceptor} from "./infrastructure/interceptors/manage-chat-message.interceptor";
+import {GetChatMessagesQueryHandler} from "./application/queries/chat-message/get-chat-messages/get-chat-messages.query.handler";
+import {GetChatMessagesAction} from "./ports/rest/actions/chat-message/get-chat-messages.action";
 
 const CommandHandlers = [
     CreateChatCommandHandler,
@@ -44,6 +46,7 @@ const QueryHandlers = [
     GetChatsByUserQueryHandler,
     GetFileByIdQueryHandler,
     GetChatMessageByIdQueryHandler,
+    GetChatMessagesQueryHandler,
 ];
 const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
 
@@ -71,6 +74,7 @@ const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
         CreateChatMessageFileAction,
         CreateChatMessageAction,
         DeleteChatMessageAction,
+        GetChatMessagesAction,
     ],
     providers: [
         ...CommandHandlers,
