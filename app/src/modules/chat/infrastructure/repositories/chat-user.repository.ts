@@ -26,4 +26,9 @@ export class ChatUserRepository implements ChatUserRepositoryInterface {
         return this.repository.findOneOrFail({where: {chatId, userId}, relations: ['user', 'chat']})
     }
 
+    async getUsersEmail(chatId: string): Promise<string[]> {
+        const chatUsers = await this.repository.find({where: {chatId}, relations: ['user']});
+        return chatUsers.map((chatUser: ChatUser) => chatUser.user.email);
+    }
+
 }

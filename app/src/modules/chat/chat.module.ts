@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import {Logger, Module} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {UserModule} from "../user/user.module";
 import {CreateChatAction} from "./ports/rest/actions/create-chat.action";
@@ -35,6 +35,8 @@ import {GetChatMessagesQueryHandler} from "./application/queries/chat-message/ge
 import {GetChatMessagesAction} from "./ports/rest/actions/chat-message/get-chat-messages.action";
 import {EditChatMessageCommandHandler} from "./application/commands/chat-message/edit/edit-chat-message.command.handler";
 import {EditChatMessageAction} from "./ports/rest/actions/chat-message/edit-chat-message.action";
+import {CentrifugeModule} from "../centrifuge/centrifuge.module";
+import {CentrifugoPublishMessage} from "./application/services/publish-message/centrifugo-publish-message";
 
 const CommandHandlers = [
     CreateChatCommandHandler,
@@ -68,7 +70,8 @@ const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
         }),
         MulterModule.registerAsync({
             useClass: MulterConfigService,
-        })
+        }),
+        CentrifugeModule,
     ],
     controllers: [
         CreateChatAction,
@@ -89,6 +92,11 @@ const Interceptors = [ReadChatInterceptor, ManageChatMessageInterceptor];
         ChatUserRepository,
         ChatMessageFileRepository,
         FileSystem,
+        {
+            provide: 'PublishMessageInterface',
+            useClass: CentrifugoPublishMessage,
+        },
+        Logger,
     ]
 })
 export class ChatModule {}

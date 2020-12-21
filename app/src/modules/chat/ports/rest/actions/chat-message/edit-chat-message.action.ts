@@ -2,7 +2,7 @@ import {
     BadRequestException,
     Body,
     Controller,
-    HttpCode,
+    HttpCode, Inject, Logger,
     Param,
     Put,
     UseGuards,
@@ -19,6 +19,8 @@ import {GetChatMessageByIdQuery} from "../../../../application/queries/chat-mess
 import {EditChatMessageRequest} from "../../requests/edit-chat-message.request";
 import {EditChatMessageCommand} from "../../../../application/commands/chat-message/edit/edit-chat-message.command";
 import {ManageChatMessageInterceptor} from "../../../../infrastructure/interceptors/manage-chat-message.interceptor";
+import {PublishMessageInterface} from "../../../../application/services/publish-message/publish-message.interface";
+import {EDITED_MESSAGE_EVENT} from "../../../../application/services/publish-message/event-message";
 
 @ApiTags('Chat (message)')
 @Controller('api/chats/:chatId/messages/:messageId')
@@ -27,6 +29,9 @@ export class EditChatMessageAction {
     constructor(
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus,
+        @Inject('PublishMessageInterface')
+        private readonly publishMessage: PublishMessageInterface,
+        private readonly logger: Logger,
     ) {}
 
     @Put()
@@ -50,7 +55,16 @@ export class EditChatMessageAction {
                     request.message,
                 )
             );
-            return await this.queryBus.execute(new GetChatMessageByIdQuery(id));
+
+            const chatMessage = await this.queryBus.execute(new GetChatMessageByIdQuery(id));
+
+            this.publishMessage.publishToChat(
+                params.chatId,
+                EDITED_MESSAGE_EVENT,
+                chatMessage
+            ).catch((err) => this.logger.log('warn', err));
+
+            return chatMessage;
         } catch (e) {
             throw new BadRequestException(e.message);
         }

@@ -1,0 +1,12 @@
+{
+  "v3_use_offset": true,
+  "token_rsa_public_key": "-----BEGIN PUBLIC KEY-----\nMIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgF4GUvCcxlhYbfjeCHX5bV9AqX0u\n3Ew2IuC1aVkH/BaAaHLutmjdXOCgSIeu+ZMpWcix9D7F+eCq0JkfiHavZs2rBuBp\n33zheBzvb64lFGBufIKCHV7RkDzsnnVNitnWJdtTtASbYgT3Y9QalgNAnVTLwkYy\nYIiy5hh5V7iLmWcdAgMBAAE=\n-----END PUBLIC KEY-----",
+  "admin": true,
+  "admin_password": "password",
+  "admin_secret": "secret",
+  "api_key": "test_key",
+  "client_channel_limit": 128,
+  "debug": true,
+  "history_lifetime": 3600,
+  "history_size": 100
+}
